@@ -374,9 +374,14 @@ st.markdown("""
 @st.cache_resource
 def load_artifacts():
     try:
-        with open('tennis_model.pkl', 'rb') as f:
+        import os
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        model_path = os.path.join(current_dir, 'tennis_model.pkl')
+        encoders_path = os.path.join(current_dir, 'encoders.pkl')
+        
+        with open(model_path, 'rb') as f:
             model = pickle.load(f)
-        with open('encoders.pkl', 'rb') as f:
+        with open(encoders_path, 'rb') as f:
             encoders = pickle.load(f)
         return model, encoders
     except FileNotFoundError:
